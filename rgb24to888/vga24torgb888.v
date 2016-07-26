@@ -20,14 +20,18 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module vga24torgb888(
+module vga24torgb888#(
+    width_red = 8,
+    width_green = 8,
+    width_blue = 8
+)(
     input [23:0] vga_data,
-    output [7:0] r,
-    output [7:0] g,
-    output [7:0] b
+    output [width_red-1:0] r,
+    output [width_green-1:0] g,
+    output [width_blue-1:0] b
     );
-assign r = vga_data[23:16];
-assign g = vga_data[15:8];
-assign b = vga_data[7:0];
+assign r = vga_data[23:24-width_red];
+assign g = vga_data[15:16-width_green];
+assign b = vga_data[7:8-width_blue];
     
 endmodule
