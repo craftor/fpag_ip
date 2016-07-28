@@ -21,7 +21,7 @@
 
 
 module clk_div#(
-    CLK_DIV = 32'd10
+    parameter CLK_DIV = 32'd10
 )(
     input clk_i,
     input rst,
@@ -32,18 +32,23 @@ reg [31:0] cnt = 0;
 reg        clk_buf = 0;
 always@(posedge clk_i or posedge rst) begin
 
-    if (rst) begin
-        cnt <= 0;
-        clk_buf <= 0;
-    end else begin
-        if (cnt == CLK_DIV/2 -1) begin
-            cnt <= 0;
-            clk_buf <= ~clk_buf;
-        end else begin
-            cnt <= cnt + 1'b1;
-        end
-    end
+	if (rst) begin
+		
+		cnt <= 0;
+		clk_buf <= 0;
 
+	end else begin
+
+	    if (cnt == CLK_DIV/2 -1) begin
+	        cnt <= 0;
+	        clk_buf <= ~clk_buf;
+	    end else begin
+	        cnt <= cnt + 1'b1;
+	    end
+
+	end
 end
+
+assign clk_o = clk_buf;
 
 endmodule

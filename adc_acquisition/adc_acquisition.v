@@ -28,6 +28,7 @@ module adc_acquisition(
     input [11:0] adc_data,
     input        adc_otr_i,
     output       adc_otr_o,
+    output [11:0] adc_data_o,
     
     input    [31:0]  start,
     output           wr_en ,
@@ -42,6 +43,7 @@ assign wr_clk = clk_i;
 assign wr_data = {20'b0, adc_data};
 assign wr_en = start[0];
 assign adc_otr_o = adc_otr_i;
+assign adc_data_o = adc_data;
 
 always@(posedge clk_i or posedge rst) begin
 
